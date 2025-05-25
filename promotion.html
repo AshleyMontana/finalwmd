@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Montana | Promotions</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #1a1a2e;
+      --dark-blue: #0f3460;
+      --teal: #4cc9f0;
+      --gradient-start: #000428;
+      --gradient-end: #004e92;
+    }
+    
+    body {
+      padding-top: 56px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+    }
+    
+    .navbar {
+      background-color: var(--primary-blue);
+      transition: all 0.3s;
+    }
+    
+    .navbar.scrolled {
+      background-color: var(--dark-blue) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .hero {
+      background: linear-gradient(rgba(0, 4, 40, 0.8), rgba(0, 78, 146, 0.8)), 
+                  url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 6rem 1rem;
+      margin-bottom: 3rem;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hero p {
+      font-size: 1.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    .offer-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-left: 5px solid var(--teal);
+      height: 100%;
+    }
+    
+    .offer-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .offer-card h3 {
+      color: var(--primary-blue);
+      margin-bottom: 1rem;
+    }
+    
+    .btn-success {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+    
+    .btn-outline-light {
+      border-color: var(--teal);
+      color: var(--primary-blue);
+    }
+    
+    .btn-outline-light:hover {
+      background-color: var(--teal);
+      color: white;
+    }
+    
+    footer {
+      background-color: var(--dark-blue);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+    
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: var(--teal);
+    }
+    
+    .badge {
+      font-size: 0.75em;
+    }
+    
+    .btn-primary {
+      background-color: var(--teal);
+      border-color: var(--teal);
+    }
+    
+    .btn-primary:hover {
+      background-color: #3aa8d8;
+      border-color: #3aa8d8;
+    }
+    
+    /* Modal styles */
+    .modal-content {
+      border-radius: 10px;
+      border: none;
+    }
+    
+    .modal-header {
+      background-color: var(--primary-blue);
+      color: white;
+      border-radius: 10px 10px 0 0 !important;
+    }
+    
+    .btn-close {
+      filter: invert(1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">🎮 Montana</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="games.html">Games</a></li>
+        <li class="nav-item"><a class="nav-link active" href="promotions.html">Promotions</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html">
+            🛒 Cart <span class="badge bg-warning" id="cartCount">0</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-primary ms-2" id="loginBtn">Login</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <h1 class="fw-bold">Exclusive Montana Promotions</h1>
+    <p class="lead">Unlock special deals, free trials, and limited-time offers!</p>
+  </div>
+</section>
+
+<!-- Promotions -->
+<section class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="offer-card">
+        <div class="d-flex align-items-center mb-3">
+          <div class="bg-warning rounded-circle p-2 me-3">
+            <i class="fas fa-gamepad fa-lg text-white"></i>
+          </div>
+          <h3 class="mb-0">7-Day Free Trial</h3>
+        </div>
+        <p>Experience <strong>Spider-Man 2</strong> for a whole week at no cost! Swing through NYC as Peter Parker and Miles Morales.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">Available to logged-in users only</small>
+          <button class="btn btn-success" id="trialBtn">Claim Trial</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-4">
+      <div class="offer-card">
+        <div class="d-flex align-items-center mb-3">
+          <div class="bg-danger rounded-circle p-2 me-3">
+            <i class="fas fa-fire fa-lg text-white"></i>
+          </div>
+          <h3 class="mb-0">50% Off Deal</h3>
+        </div>
+        <p><strong>God of War: Ragnarok</strong> at half price! Only this week - embark on your Norse adventure today.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">Offer ends in 5 days</small>
+          <a href="games.html" class="btn btn-outline-light">View Game</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-4">
+      <div class="offer-card">
+        <div class="d-flex align-items-center mb-3">
+          <div class="bg-info rounded-circle p-2 me-3">
+            <i class="fas fa-gift fa-lg text-white"></i>
+          </div>
+          <h3 class="mb-0">Classic Bundle</h3>
+        </div>
+        <p>Buy <strong>Tekken 3 & Crash Bandicoot</strong> and get 25% off <strong>The Last of Us</strong> as a bonus!</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">Limited time offer</small>
+          <a href="games.html" class="btn btn-outline-light">Explore Bundle</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Second row of promotions -->
+  <div class="row mt-4">
+    <div class="col-lg-6">
+      <div class="offer-card">
+        <div class="d-flex align-items-center mb-3">
+          <div class="bg-primary rounded-circle p-2 me-3">
+            <i class="fas fa-users fa-lg text-white"></i>
+          </div>
+          <h3 class="mb-0">Multiplayer Madness</h3>
+        </div>
+        <p>Buy any 2 multiplayer games and get a 3rd one free! Perfect for gaming nights with friends.</p>
+        <ul class="mb-3">
+          <li>FIFA 23</li>
+          <li>Call of Duty: Modern Warfare 2</li>
+          <li>Tekken 3</li>
+        </ul>
+        <a href="games.html" class="btn btn-outline-light">View Multiplayer Games</a>
+      </div>
+    </div>
+    
+    <div class="col-lg-6">
+      <div class="offer-card">
+        <div class="d-flex align-items-center mb-3">
+          <div class="bg-success rounded-circle p-2 me-3">
+            <i class="fas fa-star fa-lg text-white"></i>
+          </div>
+          <h3 class="mb-0">New Member Bonus</h3>
+        </div>
+        <p>Sign up today and get <strong>15% off</strong> your first purchase plus <strong>500 loyalty points</strong>!</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">New customers only</small>
+          <button class="btn btn-primary" id="registerBtn">Join Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <h5>Contact Us</h5>
+        <p class="mb-1"><i class="fas fa-phone me-2"></i>+267 76 957 324</p>
+        <p><i class="fas fa-envelope me-2"></i>info@montanagames.com</p>
+      </div>
+      
+      <div class="col-md-4 mb-4 text-center">
+        <h5>Follow Us</h5>
+        <div class="social-links">
+          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4 text-md-end">
+        <h5>Legal</h5>
+        <p>&copy; 2025 Montana Game Store</p>
+        <p>All rights reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Login to Your Account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="loginEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <p class="text-center w-100">Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Your Account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="registerForm">
+          <div class="mb-3">
+            <label for="registerName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="registerName" required>
+          </div>
+          <div class="mb-3">
+            <label for="registerEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="registerEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="registerPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="registerPassword" required>
+          </div>
+          <div class="mb-3">
+            <label for="registerConfirm" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="registerConfirm" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <p class="text-center w-100">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Trial Success Modal -->
+<div class="modal fade" id="trialModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">Trial Activated!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fas fa-check-circle fa-5x text-success mb-4"></i>
+        <h4>Your 7-Day Free Trial is Ready!</h4>
+        <p>You can now enjoy Spider-Man 2 for free for 7 days. The trial will automatically end on <span id="trialEndDate"></span>.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" onclick="window.location.href='games.html'">Start Playing</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // User state management
+  let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+  let trialClaimed = localStorage.getItem('trialClaimed') === 'true' || false;
+  
+  // Modal instances
+  const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+  const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+  const trialModal = new bootstrap.Modal(document.getElementById('trialModal'));
+  
+  // Initialize page
+  document.addEventListener('DOMContentLoaded', function() {
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        document.querySelector('.navbar').classList.add('scrolled');
+      } else {
+        document.querySelector('.navbar').classList.remove('scrolled');
+      }
+    });
+    
+    // Update UI based on login state
+    updateLoginState();
+    
+    // Button event listeners
+    document.getElementById('loginBtn').addEventListener('click', showLogin);
+    document.getElementById('trialBtn').addEventListener('click', claimTrial);
+    document.getElementById('registerBtn').addEventListener('click', showRegister);
+    document.getElementById('switchToRegister').addEventListener('click', switchToRegister);
+    document.getElementById('switchToLogin').addEventListener('click', switchToLogin);
+    
+    // Form submissions
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    document.getElementById('registerForm').addEventListener('submit', handleRegister);
+  });
+  
+  // Update UI based on login state
+  function updateLoginState() {
+    const loginBtn = document.getElementById('loginBtn');
+    const trialBtn = document.getElementById('trialBtn');
+    
+    if (currentUser) {
+      loginBtn.textContent = 'Logout';
+      loginBtn.onclick = handleLogout;
+      
+      if (trialClaimed) {
+        trialBtn.textContent = 'Trial Claimed';
+        trialBtn.disabled = true;
+        trialBtn.classList.remove('btn-success');
+        trialBtn.classList.add('btn-secondary');
+      } else {
+        trialBtn.disabled = false;
+      }
+    } else {
+      loginBtn.textContent = 'Login';
+      loginBtn.onclick = showLogin;
+      trialBtn.disabled = false;
+    }
+  }
+  
+  // Show login modal
+  function showLogin() {
+    loginModal.show();
+  }
+  
+  // Show register modal
+  function showRegister() {
+    registerModal.show();
+  }
+  
+  // Switch between login and register modals
+  function switchToRegister(e) {
+    e.preventDefault();
+    loginModal.hide();
+    registerModal.show();
+  }
+  
+  function switchToLogin(e) {
+    e.preventDefault();
+    registerModal.hide();
+    loginModal.show();
+  }
+  
+  // Handle login form submission
+  function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    // Simple validation - in a real app you would check against a database
+    if (email && password) {
+      currentUser = {
+        email: email,
+        name: email.split('@')[0] // Simple way to get a "name"
+      };
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      loginModal.hide();
+      updateLoginState();
+      showToast('Login successful!', 'success');
+    } else {
+      showToast('Please enter both email and password', 'danger');
+    }
+  }
+  
+  // Handle register form submission
+  function handleRegister(e) {
+    e.preventDefault();
+    const name = document.getElementById('registerName').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const confirm = document.getElementById('registerConfirm').value;
+    
+    if (password !== confirm) {
+      showToast('Passwords do not match', 'danger');
+      return;
+    }
+    
+    if (name && email && password) {
+      currentUser = {
+        name: name,
+        email: email
+      };
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      registerModal.hide();
+      updateLoginState();
+      showToast('Registration successful!', 'success');
+    } else {
+      showToast('Please fill all fields', 'danger');
+    }
+  }
+  
+  // Handle logout
+  function handleLogout() {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    updateLoginState();
+    showToast('Logged out successfully', 'info');
+  }
+  
+  // Claim trial functionality
+  function claimTrial() {
+    if (!currentUser) {
+      showToast('Please login to claim your free trial', 'warning');
+      showLogin();
+      return;
+    }
+    
+    if (trialClaimed) {
+      showToast('You have already claimed your free trial', 'info');
+      return;
+    }
+    
+    // Set trial end date (7 days from now)
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 7);
+    document.getElementById('trialEndDate').textContent = endDate.toLocaleDateString();
+    
+    // Mark trial as claimed
+    trialClaimed = true;
+    localStorage.setItem('trialClaimed', 'true');
+    
+    // Update UI and show success modal
+    updateLoginState();
+    trialModal.show();
+  }
+  
+  // Show toast notifications
+  function showToast(message, type) {
+    const toast = document.createElement('div');
+    toast.className = `position-fixed bottom-0 end-0 p-3`;
+    toast.style.zIndex = '11';
+    toast.innerHTML = `
+      <div class="toast show align-items-center text-white bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            ${message}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
+  }
+</script>
+</body>
+</html>

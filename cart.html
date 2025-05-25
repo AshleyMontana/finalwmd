@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | Montana</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #1a1a2e;
+      --dark-blue: #0f3460;
+      --teal: #4cc9f0;
+      --gradient: linear-gradient(135deg, #000428, #004e92);
+    }
+    
+    body {
+      padding-top: 60px;
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .navbar {
+      background-color: var(--primary-blue);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .cart-header {
+      background: var(--gradient);
+      color: white;
+      padding: 3rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .cart-header h1 {
+      font-weight: 700;
+    }
+    
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .card-header {
+      background-color: var(--primary-blue);
+      color: white;
+      border-radius: 10px 10px 0 0 !important;
+    }
+    
+    .btn-primary {
+      background-color: var(--teal);
+      border-color: var(--teal);
+      font-weight: 600;
+    }
+    
+    .btn-primary:hover {
+      background-color: #3aa8d8;
+      border-color: #3aa8d8;
+    }
+    
+    .quantity-btn {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .empty-cart {
+      background-color: white;
+      border-radius: 10px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .empty-cart i {
+      font-size: 5rem;
+      color: #ddd;
+      margin-bottom: 1.5rem;
+    }
+    
+    .game-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    
+    .success-modal .modal-header {
+      background-color: #28a745;
+      color: white;
+    }
+    
+    .success-icon {
+      font-size: 5rem;
+      color: #28a745;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">🎮 Montana</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="games.html">Games</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="cart.html">
+            🛒 Cart <span class="badge bg-warning" id="cartCount">0</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-primary ms-2" onclick="showLogin()">Login</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Cart Header -->
+<header class="cart-header">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Your Shopping Cart</h1>
+    <p class="lead">Review your items before checkout</p>
+  </div>
+</header>
+
+<div class="container py-4">
+  <div class="row">
+    <!-- Cart Items Column -->
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h4 class="mb-0">Your Items</h4>
+        </div>
+        <div class="card-body" id="cartItems">
+          <!-- Cart items will be loaded here -->
+          <div class="empty-cart" id="emptyCartMessage">
+            <i class="fas fa-shopping-cart"></i>
+            <h3>Your cart is empty</h3>
+            <p class="text-muted mb-4">Looks like you haven't added any games yet</p>
+            <a href="games.html" class="btn btn-primary px-4">Browse Games</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Summary Column -->
+    <div class="col-lg-4">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h4 class="mb-0">Order Summary</h4>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal:</span>
+            <span id="subtotal">$0.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Shipping:</span>
+            <span id="shipping">$5.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-3">
+            <span>Tax (10%):</span>
+            <span id="tax">$0.00</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between fw-bold fs-5">
+            <span>Total:</span>
+            <span id="total">$5.00</span>
+          </div>
+          <button class="btn btn-primary w-100 mt-3 py-2" id="checkoutBtn" disabled onclick="proceedToPayment()">
+            <i class="fas fa-lock me-2"></i>Proceed to Payment
+          </button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-body text-center">
+          <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+          <h5>Secure Checkout</h5>
+          <p class="small text-muted">All transactions are encrypted and secure</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Complete Your Purchase</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="paymentForm">
+          <div class="mb-3">
+            <label class="form-label">Card Number</label>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="1234 5678 9012 3456" required>
+              <span class="input-group-text"><i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard ms-2"></i></span>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Expiry Date</label>
+              <input type="text" class="form-control" placeholder="MM/YY" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">CVV</label>
+              <input type="text" class="form-control" placeholder="123" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Name on Card</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 py-2">
+            <i class="fas fa-check-circle me-2"></i>Confirm Payment
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade success-modal" id="successModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Payment Successful!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h4>Thank you for your purchase!</h4>
+        <p class="mb-4">Your order has been confirmed and will be processed shortly.</p>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-primary" onclick="window.location.href='index.html'">
+            <i class="fas fa-home me-2"></i>Back to Home
+          </button>
+          <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='games.html'">
+            <i class="fas fa-gamepad me-2"></i>Browse More Games
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script>
+  // Load cart from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+  const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderCart();
+    updateCartCount();
+  });
+
+  function renderCart() {
+    const cartItemsEl = document.getElementById('cartItems');
+    const emptyCartMessage = document.getElementById('emptyCartMessage');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    if (cart.length === 0) {
+      emptyCartMessage.style.display = 'block';
+      checkoutBtn.disabled = true;
+      return;
+    }
+    
+    emptyCartMessage.style.display = 'none';
+    
+    cartItemsEl.innerHTML = cart.map(item => `
+      <div class="row mb-3 align-items-center" data-id="${item.id}">
+        <div class="col-md-2">
+          <img src="${item.image}" class="game-image" alt="${item.title}">
+        </div>
+        <div class="col-md-4">
+          <h6 class="mb-0">${item.title}</h6>
+          <small class="text-muted">$${item.price.toFixed(2)}</small>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group" style="max-width: 120px;">
+            <button class="btn btn-outline-secondary quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+            <input type="text" class="form-control text-center" value="${item.quantity}" readonly>
+            <button class="btn btn-outline-secondary quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+          </div>
+        </div>
+        <div class="col-md-2 text-end">
+          <span class="fw-bold">$${(item.price * item.quantity).toFixed(2)}</span>
+        </div>
+        <div class="col-md-1 text-end">
+          <button class="btn btn-sm btn-outline-danger" onclick="removeItem(${item.id})">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    `).join('');
+    
+    updateOrderSummary();
+    checkoutBtn.disabled = false;
+  }
+
+  function updateQuantity(id, change) {
+    const item = cart.find(item => item.id === id);
+    if (!item) return;
+    
+    item.quantity += change;
+    
+    if (item.quantity < 1) {
+      cart = cart.filter(item => item.id !== id);
+    }
+    
+    saveCart();
+    renderCart();
+    updateCartCount();
+  }
+
+  function removeItem(id) {
+    cart = cart.filter(item => item.id !== id);
+    saveCart();
+    renderCart();
+    updateCartCount();
+  }
+
+  function updateOrderSummary() {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shipping = 5.00;
+    const tax = subtotal * 0.1; // 10% tax
+    const total = subtotal + shipping + tax;
+    
+    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+  }
+
+  function proceedToPayment() {
+    paymentModal.show();
+  }
+
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+  }
+
+  function updateCartCount() {
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    document.getElementById('cartCount').textContent = count;
+  }
+
+  // Payment form submission
+  document.getElementById('paymentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Process payment (simulated)
+    paymentModal.hide();
+    
+    // Clear cart after successful payment
+    cart = [];
+    saveCart();
+    
+    // Show success message
+    successModal.show();
+    
+    // Update UI
+    renderCart();
+  });
+
+  function showLogin() {
+    alert('Login functionality would appear here');
+  }
+</script>
+</body>
+</html>
