@@ -2,462 +2,212 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Montana | Premium PlayStation Games</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Montana | PlayStation Games</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
-      --primary-dark: #0f0f1a;
-      --primary-blue: #1a1a2e;
-      --accent-blue: #4cc9f0;
-      --ps-blue: #003791;
-      --gradient-dark: linear-gradient(135deg, #000428, #004e92);
+      --primary-color: #003791;
+      --accent-color: #4cc9f0;
+      --dark-bg: #121212;
+      --light-bg: #ffffff;
+      --dark-text: #f1f1f1;
+      --light-text: #333;
     }
     
     body {
-      padding-top: 80px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
+      background-color: var(--light-bg);
+      color: var(--light-text);
+      transition: background-color 0.3s, color 0.3s;
     }
-    
-    /* Navbar */
-    .navbar {
-      background-color: var(--primary-dark);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      padding: 15px 0;
+
+    header {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem 0;
     }
-    
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.5rem;
+
+    header a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 600;
     }
-    
-    .navbar-brand img {
-      transition: transform 0.3s;
+
+    header a:hover {
+      text-decoration: underline;
     }
-    
-    .navbar-brand:hover img {
-      transform: rotate(15deg);
-    }
-    
-    .nav-link {
-      font-weight: 500;
-      margin: 0 8px;
-      position: relative;
-    }
-    
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background-color: var(--accent-blue);
-      transition: width 0.3s;
-    }
-    
-    .nav-link:hover::after,
-    .nav-link.active::after {
-      width: 100%;
-    }
-    
-    /* Hero Section */
-    .hero-section {
-      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                  url('https://images.unsplash.com/photo-1607853202273-797f1c22a38e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      height: 90vh;
-      display: flex;
-      align-items: center;
+
+    .hero {
+      background: var(--primary-color);
+      color: white;
+      padding: 4rem 1rem;
       text-align: center;
     }
-    
-    .hero-section h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      margin-bottom: 1.5rem;
-      background: linear-gradient(to right, #fff, var(--accent-blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
     }
-    
-    .hero-section p {
-      font-size: 1.5rem;
+
+    .hero p {
+      font-size: 1.2rem;
       margin-bottom: 2rem;
-      color: rgba(255,255,255,0.9);
     }
-    
-    /* Game Cards */
-    .game-card {
+
+    .hero a.btn {
+      background: var(--accent-color);
+      color: black;
+      font-weight: bold;
       border: none;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      background-color: white;
     }
-    
-    .game-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+
+    .hero a.btn:hover {
+      background: #34b9e2;
     }
-    
+
     .game-card img {
-      height: 300px;
+      height: 200px;
       object-fit: cover;
-      transition: transform 0.5s;
     }
-    
-    .game-card:hover img {
-      transform: scale(1.05);
-    }
-    
-    .game-card .card-body {
-      padding: 1.5rem;
-    }
-    
-    .game-card .card-title {
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    
-    /* Floating Feedback Button */
-    .feedback-float {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 100;
-      border-radius: 50px;
-      padding: 15px 25px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      transition: all 0.3s;
-    }
-    
-    .feedback-float:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    
-    /* Footer */
-    footer {
-      background: var(--primary-dark);
-      color: white;
-      padding: 4rem 0 2rem;
-    }
-    
-    .social-links a {
-      color: white;
-      font-size: 1.5rem;
-      margin: 0 10px;
-      transition: color 0.3s;
-    }
-    
-    .social-links a:hover {
-      color: var(--accent-blue);
-    }
-    
-    /* Buttons */
-    .btn-warning {
-      background-color: #ffc107;
-      border-color: #ffc107;
-      color: #000;
-      font-weight: 600;
-      padding: 12px 30px;
-      border-radius: 50px;
-      transition: all 0.3s;
-    }
-    
-    .btn-warning:hover {
-      background-color: #ffab00;
-      border-color: #ffab00;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
-    }
-    
-    .btn-primary {
-      background-color: var(--ps-blue);
-      border-color: var(--ps-blue);
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-    
-    .btn-primary:hover {
-      background-color: #002d7a;
-      border-color: #002d7a;
-      transform: translateY(-3px);
-    }
-    
-    /* Dark Mode Toggle */
+
     .dark-mode {
-      background-color: #121212;
-      color: #f1f1f1;
+      background-color: var(--dark-bg) !important;
+      color: var(--dark-text) !important;
     }
-    
-    .dark-mode .game-card {
-      background-color: #1e1e1e;
-      color: #f1f1f1;
+
+    .dark-mode header {
+      background: #222;
     }
-    
-    .dark-mode .text-success {
-      color: #4caf50 !important;
+
+    .dark-mode .hero {
+      background: #333;
     }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .hero-section {
-        height: 70vh;
-        background-attachment: scroll;
-      }
-      
-      .hero-section h1 {
-        font-size: 2.5rem;
-      }
-      
-      .hero-section p {
-        font-size: 1.2rem;
-      }
+
+    .dark-mode .card {
+      background: #1e1e1e;
+      color: var(--dark-text);
+    }
+
+    .dark-mode .newsletter {
+      background: #222 !important;
+    }
+
+    .dark-mode .newsletter input {
+      background: #333;
+      color: white;
+      border-color: #555;
+    }
+
+    .dark-mode .newsletter button {
+      background: var(--accent-color);
+      color: black;
+    }
+
+    footer {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="index.html">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Playstation_logo_colour.svg" 
-           alt="PlayStation Logo" 
-           width="30" height="30" 
-           class="me-2">
-      Montana
-    </a>
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="games.html">Games</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
-        <li class="nav-item"><a class="nav-link" href="promotion.html">Promotions</a></li>
-      </ul>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="cart.html">
-            <i class="fas fa-shopping-cart me-1"></i> Cart <span class="badge bg-warning" id="cartCount">0</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-outline-light ms-2" id="modeToggle">
-            <i class="fas fa-moon"></i> Dark Mode
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- Floating Feedback Button -->
-<a href="feedback.html" class="btn btn-primary feedback-float">
-  <i class="fas fa-comment-dots me-2"></i>Feedback
-</a>
-
-<!-- Hero Section -->
-<header class="hero-section text-white">
-  <div class="container h-100 d-flex align-items-center">
-    <div class="text-center w-100">
-      <h1 class="display-4 fw-bold mb-4">Experience Gaming Excellence</h1>
-      <p class="text-light mb-4">Discover the best PlayStation titles in our curated collection</p>
-      <div class="d-flex justify-content-center gap-3">
-        <a href="games.html" class="btn btn-warning btn-lg">Explore Games</a>
-        <a href="promotion.html" class="btn btn-outline-light btn-lg">View Promotions</a>
-      </div>
-    </div>
+<!-- Header -->
+<header>
+  <div class="container d-flex justify-content-between align-items-center">
+    <h1 class="h4 mb-0">Montana</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Games</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <button id="toggleDark" class="btn btn-sm btn-outline-light ms-3">Dark Mode</button>
+    </nav>
   </div>
 </header>
 
-<!-- Featured Games -->
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <h1>Experience Gaming Excellence</h1>
+    <p>Discover the best PlayStation titles curated for you.</p>
+    <a href="#" class="btn">Explore Games</a>
+  </div>
+</section>
+
+<!-- Games Section -->
 <section class="py-5">
   <div class="container">
-    <h2 class="text-center mb-5">Featured Titles</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card h-100 game-card">
-          <img src="images/spider-man.jpg" 
-               class="card-img-top" 
-               alt="Spider-Man 2">
+    <h2 class="text-center mb-4">Featured Games</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card game-card">
+          <img src="images/spider-man.jpg" class="card-img-top" alt="Spider-Man 2">
           <div class="card-body">
             <h5 class="card-title">Marvel's Spider-Man 2</h5>
-            <p class="text-muted">Action-Adventure</p>
-            <p class="text-success fw-bold">$69.99</p>
-            <div class="d-flex gap-2">
-              <a href="games.html" class="btn btn-primary flex-grow-1">View Details</a>
-              <button class="btn btn-outline-secondary">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
+            <p class="card-text fw-bold">$69.99</p>
+            <a href="#" class="btn btn-primary">View Details</a>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card h-100 game-card">
-          <img src="images/god of war2.jpg" 
-               class="card-img-top" 
-               alt="God of War">
+      <div class="col-md-4">
+        <div class="card game-card">
+          <img src="images/god of war2.jpg" class="card-img-top" alt="God of War">
           <div class="card-body">
             <h5 class="card-title">God of War: Ragnarök</h5>
-            <p class="text-muted">Action RPG</p>
-            <p class="text-success fw-bold">$59.99</p>
-            <div class="d-flex gap-2">
-              <a href="games.html" class="btn btn-primary flex-grow-1">View Details</a>
-              <button class="btn btn-outline-secondary">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
+            <p class="card-text fw-bold">$59.99</p>
+            <a href="#" class="btn btn-primary">View Details</a>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card h-100 game-card">
-          <img src="images/ghost.jpg" 
-               class="card-img-top" 
-               alt="Ghost of Tsushima">
+      <div class="col-md-4">
+        <div class="card game-card">
+          <img src="images/ghost.jpg" class="card-img-top" alt="Ghost of Tsushima">
           <div class="card-body">
             <h5 class="card-title">Ghost of Tsushima</h5>
-            <p class="text-muted">Open World</p>
-            <p class="text-success fw-bold">$49.99</p>
-            <div class="d-flex gap-2">
-              <a href="games.html" class="btn btn-primary flex-grow-1">View Details</a>
-              <button class="btn btn-outline-secondary">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
+            <p class="card-text fw-bold">$49.99</p>
+            <a href="#" class="btn btn-primary">View Details</a>
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Call to Action -->
-    <div class="text-center mt-5">
-      <h3 class="mb-4">Ready for your next adventure?</h3>
-      <a href="games.html" class="btn btn-primary btn-lg px-5">
-        Browse All Games <i class="fas fa-arrow-right ms-2"></i>
-      </a>
     </div>
   </div>
 </section>
 
-<!-- Newsletter Section -->
-<section class="py-5 bg-light">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-6 text-center">
-        <h2 class="mb-4">Stay Updated</h2>
-        <p class="mb-4">Subscribe to our newsletter for the latest game releases and exclusive offers</p>
-        <form class="d-flex gap-2">
-          <input type="email" class="form-control" placeholder="Your email address" required>
-          <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
+<!-- Newsletter -->
+<section class="newsletter py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="mb-3">Stay Updated</h2>
+    <p class="mb-4">Subscribe for news and exclusive offers.</p>
+    <form class="row justify-content-center g-2" id="newsletterForm">
+      <div class="col-auto">
+        <input type="email" class="form-control" placeholder="Your email" required>
       </div>
-    </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </div>
+    </form>
   </div>
 </section>
 
 <!-- Footer -->
-<footer class="bg-dark text-light py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <h5 class="mb-3">Montana</h5>
-        <p>Your premier destination for PlayStation games and accessories.</p>
-        <div class="mt-3">
-          <a href="#" class="text-light me-3">Privacy Policy</a>
-          <a href="#" class="text-light">Terms of Service</a>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <h5 class="mb-3">Quick Links</h5>
-        <ul class="list-unstyled">
-          <li class="mb-2"><a href="games.html" class="text-light">Game Library</a></li>
-          <li class="mb-2"><a href="promotion.html" class="text-light">Current Promotions</a></li>
-          <li class="mb-2"><a href="about.html" class="text-light">About Us</a></li>
-          <li><a href="contact.html" class="text-light">Contact Support</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4 mb-4">
-        <h5 class="mb-3">Connect With Us</h5>
-        <p class="mb-2"><i class="fas fa-phone me-2"></i>+267 76 957 324</p>
-        <p class="mb-3"><i class="fas fa-envelope me-2"></i>info@montanagames.com</p>
-        <div class="social-links">
-          <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
-        </div>
-      </div>
-    </div>
-    <hr class="my-4">
-    <div class="text-center">
-      <p class="mb-0">&copy; 2025 Montana Game Store. All rights reserved.</p>
-    </div>
-  </div>
+<footer>
+  &copy; 2025 Montana Game Store. All rights reserved.
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // Dark Mode Toggle
-  document.getElementById('modeToggle').addEventListener('click', function() {
+  document.getElementById('toggleDark').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
-    
-    if (document.body.classList.contains('dark-mode')) {
-      this.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
-      localStorage.setItem('darkMode', 'enabled');
-    } else {
-      this.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
-      localStorage.setItem('darkMode', 'disabled');
-    }
   });
-  
-  // Check for saved dark mode preference
-  if (localStorage.getItem('darkMode') === 'enabled') {
-    document.body.classList.add('dark-mode');
-    document.getElementById('modeToggle').innerHTML = '<i class="fas fa-sun"></i> Light Mode';
-  }
-  
-  // Simple cart count - would be replaced with real implementation
-  let cartCount = 0;
-  document.getElementById('cartCount').textContent = cartCount;
-  
-  // Add to cart functionality for demo
-  document.querySelectorAll('.btn-outline-secondary').forEach(btn => {
-    btn.addEventListener('click', function() {
-      // In a real implementation, this would add to favorites
-      this.classList.toggle('text-danger');
-      const icon = this.querySelector('i');
-      if (this.classList.contains('text-danger')) {
-        icon.classList.remove('fa-heart');
-        icon.classList.add('fa-heart-circle-check');
-      } else {
-        icon.classList.remove('fa-heart-circle-check');
-        icon.classList.add('fa-heart');
-      }
-    });
-  });
-  
-  // Newsletter form submission
-  document.querySelector('form')?.addEventListener('submit', function(e) {
+
+  document.getElementById('newsletterForm').addEventListener('submit', e => {
     e.preventDefault();
-    alert('Thanks for subscribing! You\'ll hear from us soon.');
-    this.reset();
+    alert('Thanks for subscribing!');
+    e.target.reset();
   });
 </script>
 </body>
